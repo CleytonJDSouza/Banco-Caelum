@@ -1,6 +1,6 @@
 package br.com.caelum.contas.modelo;
 
-public class ContaCorrente extends Conta {
+public class ContaCorrente extends ContaBase {
 	
 	public ContaCorrente(String titular, String agencia, int numero, double saldo) {
 		super(titular, agencia, numero, saldo);
@@ -29,5 +29,11 @@ public class ContaCorrente extends Conta {
 	
 	 public int compareTo(Conta outraConta) {
 	    return Integer.compare(this.getNumero(), outraConta.getNumero());
+	}
+
+	@Override
+	public void transfere(double valor, ContaBase destino) throws SaldoInsuficienteException {
+		// TODO Auto-generated method stub
+		
 	}
 }

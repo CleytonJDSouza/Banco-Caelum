@@ -7,6 +7,6 @@ public interface ContaInterface {
 	public void saca(double valor) throws SaldoInsuficienteException;
 	public void atualiza(double taxaSalic);
 	String getTipo();
-	
+	double getValorImposto();
 	void transfere(double valor, ContaBase destino) throws SaldoInsuficienteException;
 }

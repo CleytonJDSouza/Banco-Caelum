@@ -108,6 +108,10 @@ public abstract class Conta implements Comparable<Conta> {
 		this.agencia = agencia;
 	}
 	
+	public static List<Conta> getContas() {
+		return contas;
+	}
+	
 	public abstract String getTipo();
 	
 	public String recuperaDadosParaImpressao() {

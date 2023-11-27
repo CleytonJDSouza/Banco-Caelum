@@ -18,7 +18,7 @@ public abstract class ContaBase implements ContaInterface {
 	public String toString() {
 		return "Titular: " + titular + "\nNúmero: " + numero + "\nAgência: " + agencia + "\nSaldo: R$" + saldo + "\nTipo: " + getTipo();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -31,6 +31,16 @@ public abstract class ContaBase implements ContaInterface {
 		return numero == outraConta.numero && agencia.equals(outraConta.agencia);
 	}
 	
+
+	public int compareTo(Conta outraConta) {
+	    return Integer.compare(this.getNumero(), outraConta.getNumero());
+	}
+	
+	@Override
+	public double getValorImposto() {
+		return this.getSaldo() * 0.01;
+	}
+
 	@Override
 	public double getSaldo() {
 		return saldo;
@@ -78,14 +88,4 @@ public abstract class ContaBase implements ContaInterface {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	
-	/*@Override
-	public void transfere(double valor, Conta destino) throws SaldoInsuficienteException {
-		if (saldo >= valor) {
-			saldo -= valor;
-			destino.deposita(valor);
-		} else {
-			throw new SaldoInsuficienteException("Transferencia não realizada. Saldo insuficiente.");
-		}
-	}*/
 }
