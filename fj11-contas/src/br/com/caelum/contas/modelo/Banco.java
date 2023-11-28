@@ -1,79 +1,46 @@
-package br.com.caelum.contas.modelo;
+/*package br.com.caelum.contas.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Banco {
-	//Atributos
-    private String nome;
-    private int numero;
-    private ContaBase[] contas;
-    private int capacidadeMaxima;
-
-    //Métodos
-    public Banco(String nome, int numero, int capacidadeMaxima) {
-        this.nome = nome;
-        this.numero = numero;
-        this.capacidadeMaxima = capacidadeMaxima;
-        this.contas = new ContaBase[10];
-    }
-
-    public void adiciona(ContaBase conta) {
-        if (contasCheias()) {
-            aumentaCapacidade();
-        }
-    	
-        int posicaoVazia = -1;
-
-        for (int i = 0; i < this.contas.length; i++) {
-            if (contas[i] == null) {
-                posicaoVazia = i;
-                break;
-            }
-        }
-
-        if (posicaoVazia != -1) {
-            contas[posicaoVazia] = conta;
-        } else {
-            System.out.println("Não é possível adicionar mais contas, a capacidade máxima foi atingida.");
-        }
-    }
-    
-    private boolean contasCheias() {
-    	for (ContaBase conta : contas) {
-    		if (conta == null) {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-    
-    private void aumentaCapacidade() {
-    	int novoTamanho = contas.length * 2;
-    	ContaBase[] novaArray = new ContaBase[novoTamanho];
-    	
-    	for (int i = 0; i < contas.length; i++) {
-    		novaArray[i] = contas[i];
-    	}
-    	
-    	contas = novaArray;
-    }
-    
-    public void mostraContas() {
-    	for (int i = 0; i < this.contas.length; i ++) {
-    		ContaBase conta = this.contas[i];
-    		if (conta != null) {
-    			System.out.println("Conta na posição " + i + ":");
-    			System.out.println(conta.toString());
-    		}
-    	}
-    }
-    
-    public boolean contem(ContaBase conta) {
-    	for (ContaBase c : contas) {
-    		if (c != null && c.equals(conta)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
+	private String nome;
+	private int numero;
+	private List<ContaBase> contas;
+	
+	public Banco(String nome, int numero) {
+		this.nome = nome;
+		this.numero = numero;
+		this.contas = new ArrayList<>();
+	}
+	
+	public void adiciona(ContaBase conta) {
+		this.contas.add(conta);
+	}
+	
+	public ContaBase pega(int indice) {
+		if (indice >= 0 && indice < this.contas.size()) {
+			return this.contas.get(indice);
+		} else {
+			return null;
+		}
+	}
+	
+	public int pegaQuantidadeDeContas() {
+		return this.contas.size();
+	}
+	
+	public void mostraContas() {
+		for (int i = 0; i < this.contas.size(); i++) {
+			ContaBase conta = this.contas.get(i);
+			System.out.println("Conta na posição " + i + ":");
+			System.out.println(conta.toString());
+		}
+	}
+	
+	public boolean contem(ContaBase conta) {
+		return this.contas.contains(conta);
+	}
 	
 	public String getNome() {
 		return nome;
@@ -83,7 +50,74 @@ public class Banco {
 		return numero;
 	}
 	
-	public ContaBase[] getContas() {
+	public List<ContaBase> getContas() {
+		return contas;
+	}
+}*/
+
+package br.com.caelum.contas.modelo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Banco {
+	private String nome;
+	private int numero;
+	private List<ContaBase> contas;
+	private Map<String, ContaBase> mapaContasPorTitular;
+	
+	public Banco(String nome, int numero) {
+		this.nome = nome;
+		this.numero = numero;
+		this.contas = new ArrayList<>();
+		this.mapaContasPorTitular = new HashMap<>();
+	}
+	
+	public void adiciona(ContaBase conta) {
+		this.contas.add(conta);
+		this.mapaContasPorTitular.put(conta.getTitular(), conta);
+	}
+	
+	public ContaBase pega(int indice) {
+		if (indice >= 0 && indice < this.contas.size()) {
+			return this.contas.get(indice);
+		} else {
+			return null;
+		}
+	}
+	
+	public int pegaQuantidadeDeContas() {
+		return this.contas.size();
+	}
+	
+	public void mostraContas() {
+		for (int i = 0; i < this.contas.size(); i++) {
+			ContaBase conta = this.contas.get(i);
+			System.out.println("Conta na posição " + i + ":");
+			System.out.println(conta.toString());
+		}
+	}
+	
+	public boolean contem(ContaBase conta) {
+		return this.contas.contains(contas);
+	}
+	
+	public ContaBase buscarPorTitular(String nomedoTitular) {
+		return this.mapaContasPorTitular.get(nomedoTitular);
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public int getNumero() {
+		return numero;
+	}
+	
+	public List<ContaBase> getContas() {
 		return contas;
 	}
 }
+
