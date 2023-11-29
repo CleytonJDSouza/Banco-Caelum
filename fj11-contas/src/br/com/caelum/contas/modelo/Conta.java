@@ -44,7 +44,7 @@ public abstract class Conta implements Comparable<Conta> {
 		}
 	}
 	
-	public boolean equals(Object obj) {
+	/*public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
 		}
@@ -53,7 +53,7 @@ public abstract class Conta implements Comparable<Conta> {
 		}
 		Conta outraConta = (Conta) obj;
 		return this.numero == outraConta.numero && this.agencia.equals(outraConta.agencia);
-	}
+	}*/
 	
 	public static Conta buscarContaPorDestino(String destino) {
 		if (contas.isEmpty()) {
@@ -67,6 +67,27 @@ public abstract class Conta implements Comparable<Conta> {
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
+		result = prime * result + numero;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Conta outraConta = (Conta) obj;
+		return numero == outraConta.numero && agencia.equals(outraConta.agencia);
 	}
 	
 	@Override
