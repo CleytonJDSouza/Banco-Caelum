@@ -9,14 +9,14 @@ public class Evento {
     private String titular;
     private double valorOperacao;
 
-    private List<Conta> listaContas;
+    private List<ContaBase> listaContas;
     private List<Tributavel> listaTributaveis;
 
-    public List<Conta> getListaContas() {
+    public List<ContaBase> getListaContas() {
         return listaContas;
     }
     
-    public void setListaContas(List<Conta> listaContas) {
+    public void setListaContas(List<ContaBase> listaContas) {
         this.listaContas = listaContas;
     }
     
@@ -32,23 +32,13 @@ public class Evento {
         }
         return 0;
     }
-
-    /*public List<?> getLista(String nomeDaLista) {
+    
+    public List<ContaBase> getLista(String nomeDaLista) {
         if ("listaContas".equals(nomeDaLista)) {
             return listaContas;
-        } else if ("listaTributaveis".equals(nomeDaLista)) {
-            return listaTributaveis;
+        } else {
+            return null;
         }
-        return null;
-    }*/
-    
-    public List<Conta> getLista(String nomeDaLista) {
-    	if ("listaContas".equals(nomeDaLista)) {
-    		return (List<Conta>) listaContas;
-    	} else if ("listaTributaveis".equals(nomeDaLista)) {
-    		return null;
-    	}
-    	return null;
     }
 
     public double getValorOperacao() {

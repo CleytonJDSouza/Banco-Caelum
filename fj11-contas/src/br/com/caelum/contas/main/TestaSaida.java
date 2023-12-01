@@ -1,6 +1,10 @@
 package br.com.caelum.contas.main;
 
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 class TestaSaida {
 

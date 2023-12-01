@@ -68,5 +68,11 @@ public class ManipuladorDeContas {
     public void setConta(ContaBase conta) {
         this.conta = conta;
     }
+    
+    public void salvaDados(Evento evento) {
+        List<ContaBase> listaContas = evento.getLista("listaContas");
+        contas.addAll(listaContas);
+    }
+
 }
 
