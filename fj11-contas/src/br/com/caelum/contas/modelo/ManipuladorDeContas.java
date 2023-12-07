@@ -78,6 +78,11 @@ public class ManipuladorDeContas {
 		RepositorioDeContas repositorio = new RepositorioDeContas();
 		repositorio.salva(contas);
 	}
+	
+	public List<ContaBase> carregaDados() {
+		RepositorioDeContas repositorio = new RepositorioDeContas();
+		return repositorio.carregaDados();
+	}
 }
 
 
