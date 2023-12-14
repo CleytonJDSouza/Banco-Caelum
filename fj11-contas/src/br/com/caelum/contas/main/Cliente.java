@@ -1,26 +1,18 @@
 package br.com.caelum.contas.main;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Cliente {
 	
-	public static void main(String[] args)
-					throws UnknownHostException, IOException {
-		Socket cliente = new Socket("127.0.0.1", 12345);
-		System.out.println("O cliente se conectou ao servidor!");
+	public static void main(String[] args) throws IOException {
+		Thread threadReceber = new Thread(new Recebedor(System.in));
+		Thread threadEnviar = new Thread(new Enviador(System.out));
 		
-		Scanner teclado = new Scanner(System.in);
-		PrintStream saida = new PrintStream(cliente.getOutputStream());
-		
-		while (teclado.hasNextLine()) {
-			saida.println(teclado.nextLine());
-		}
-		
-		saida.close();
-		teclado.close();
+		threadReceber.start();
+		threadEnviar.start();
 	}
 }
