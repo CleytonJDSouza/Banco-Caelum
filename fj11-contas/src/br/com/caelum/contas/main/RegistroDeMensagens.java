@@ -1,76 +1,68 @@
 package br.com.caelum.contas.main;
 
+import br.com.caelum.contas.modelo.ProduzMensagens;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-import br.com.caelum.contas.modelo.ProduzMensagens;
-
-/*import java.util.concurrent.CopyOnWriteArrayList;
-
-import br.com.caelum.contas.modelo.ProduzMensagens;
 
 public class RegistroDeMensagens {
 	
 	public static void main(String[] args) throws InterruptedException {
-		List<String> mensagens = new CopyOnWriteArrayList<>();
 		
-		Thread t1 = new Thread(new ProduzMensagens(0, 10000, mensagens));
-	    Thread t2 = new Thread(new ProduzMensagens(10000, 20000, mensagens));
-	    Thread t3 = new Thread(new ProduzMensagens(20000, 30000, mensagens));
 		
-		t1.start();
-		t2.start();
-		t3.start();
+		// Testando com HashSet
+		List<String> mensagensHashSet = new ArrayList<>();
 		
-		t1.join();
-		t2.join();
-		t3.join();
-		
-		System.out.println("Threads produtoras de mensagens finalizadas!");
-		
-		for (int i = 0; i < 30000; i++) {
-			if (!mensagens.contains("Mensagem " + i)) {
-				throw new IllegalStateException("não encontri a mensagem: " + i);
-			}
-		}
-		
-		if (mensagens.contains(null)) {
-			throw new IllegalStateException("não devia ter null aqui dentro!");
-		}
-		
-		System.out.println("Fim da execução com sucesso");
+		Thread t1HashSet = new Thread(new ProduzMensagens(0, 10000, mensagensHashSet));
+        Thread t2HashSet = new Thread(new ProduzMensagens(10000, 20000, mensagensHashSet));
+        Thread t3HashSet = new Thread(new ProduzMensagens(20000, 30000, mensagensHashSet));
+        
+        t1HashSet.start();
+        t2HashSet.start();
+        t3HashSet.start();
+        
+        t1HashSet.join();
+        t2HashSet.join();
+        t3HashSet.join();
+        
+        System.out.println("Treads produtoras de mensagens com HashSet finalizadas!");
+        
+     
+        // Testando com LinkedList
+        List<String> mensagensLinkedList = new LinkedList<>();
+        
+        Thread t1LinkedList = new Thread(new ProduzMensagens(0, 10000, mensagensLinkedList));
+        Thread t2LinkedList = new Thread(new ProduzMensagens(10000, 20000, mensagensLinkedList));
+        Thread t3LinkedList = new Thread(new ProduzMensagens(20000, 30000, mensagensLinkedList));
+        
+        t1LinkedList.start();
+        t2LinkedList.start();
+        t3LinkedList.start();
+        
+        t1LinkedList.join();
+        t2LinkedList.join();
+        t3LinkedList.join();
+        
+        System.out.println("Thread produtoras de mensagens com LinkedList finalizadas!");
+        
+        
+        //Verificar se todas as mensagens
+        verificarMensagens(mensagensHashSet, "HashSet");
+        verificarMensagens(mensagensLinkedList, "LinkedList");
 	}
-
-}*/
-
-public class RegistroDeMensagens {
 	
-	public static void main(String[] args) throws InterruptedException {
-		List<String> mensagens = new Vector<>();
-		
-		Thread t1 = new Thread(new ProduzMensagens(0, 10000, mensagens));
-		Thread t2 = new Thread(new ProduzMensagens(10000, 20000, mensagens));
-		Thread t3 = new Thread(new ProduzMensagens(20000, 30000, mensagens));
-		
-		t1.start();
-		t2.start();
-		t3.start();
-		
-		t1.join();
-		t2.join();
-		t3.join();
-		
-		System.out.println("Threads produtoras de mensagens finalizadas!");
-		
+	private static void verificarMensagens(List<String> mensagens, String tipo) {
 		for (int i = 0; i < 30000; i++) {
 			if (!mensagens.contains("Mensagem " + i)) {
-				throw new IllegalStateException("não encontri a mensagem: " + i);
+				throw new IllegalStateException("Não encontrei a mensagem " + i + " na lista " + tipo);
 			}
 		}
 		
 		if (mensagens.contains(null)) {
-			throw new IllegalStateException("não devia ter null aqui dentro!");
+			throw new IllegalStateException("Não devia ter null na lista " + tipo);
 		}
 		
-		System.out.println("Fim da execução com sucesso");
+		System.out.println("Verificação da lista " + tipo + "concluida com sucesso!");
 	}
 }
