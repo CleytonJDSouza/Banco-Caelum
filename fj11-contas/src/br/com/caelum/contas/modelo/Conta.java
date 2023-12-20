@@ -1,110 +1,50 @@
 package br.com.caelum.contas.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DecimalFormat;
 
-public abstract class Conta implements Comparable<Conta> {
+public class Conta {
 	
-	private double saldo;
+	// ATRIBUTOS
+	
 	private String titular;
 	private int numero;
 	private String agencia;
-	private static List<Conta> contas = new ArrayList<>();
+	private double saldo;
+	private String dataDeAbertura;
 	
-	public Conta(String titular, String agencia, int numero, double saldo) {
-		this.titular = titular;
-		this.agencia = agencia;
-		this.numero = numero;
-		this.saldo = saldo;
-		contas.add(this);
+	// MÉTODOS
+	
+	public void saca(double valor) {
+		if (valor > 0) {
+			saldo += valor;
+			System.out.println("Depósito de R$" + valor + " realizado com sucesso.");
+		} else {
+			System.out.println("Valor do depósito deve ser maior que zero.");
+		}
 	}
 	
 	public void deposita(double valor) {
-		if (valor < 0) {
-			throw new IllegalArgumentException("Valor de depósito inválido: " + valor);
-		}
-		this.saldo += valor;
-	}
-	
-	public void saca(double valor) throws SaldoInsuficienteException {
-		if (valor > saldo) {
-			throw new SaldoInsuficienteException("Saldo insuficiente para sacar " + valor);
-		}
-		saldo -= valor;
-	}
-	
-	public boolean transfere(double valor, Conta destino) {
-		if (this.saldo >= valor) {
-			this.saldo -= valor;
-			destino.deposita(valor);
-			return true;
+		if (valor > 0) {
+			saldo += valor;
+			System.out.println("Depósito de R$" + valor + " realizado com sucesso.");
 		} else {
-			System.out.println("Transferência não realizada. Saldo insuficiente.");
-			return false;
+			System.out.println("Valor do depósito deve ser maior que zero.");
 		}
 	}
 	
-	/*public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Conta)) {
-			return false;
-		}
-		Conta outraConta = (Conta) obj;
-		return this.numero == outraConta.numero && this.agencia.equals(outraConta.agencia);
-	}*/
-	
-	public static Conta buscarContaPorDestino(String destino) {
-		if (contas.isEmpty()) {
-			return null;
-		}
-		
-		for (Conta conta : contas) {
-			if (conta.getAgencia().equals(destino)) {
-				return conta;
-			}
-		}
-		
-		return null;
+	public double calculaRendimento() {
+		return saldo * 0.10;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
-		result = prime * result + numero;
-		return result;
+	public String getInformacoes() {
+		DecimalFormat df = new DecimalFormat("#.00");
+		return "Titular: " + titular + "\nNúmero: " + numero + "\nAgência: " + agencia + "\nSaldo: R$" + df.format(saldo) + "\n Data da Abertura: " + dataDeAbertura;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		Conta outraConta = (Conta) obj;
-		return numero == outraConta.numero && agencia.equals(outraConta.agencia);
-	}
-	
-	@Override
-	public String toString() {
-		return "Titular: " + this.titular.toUpperCase() + "\nNúmero: " + this.numero + "\nAgência: " + this.agencia + "\nSaldo: R$" + this.saldo + "n\nTipo: " + this.getTipo();
-	}
-	
-	public double getSaldo() {
-		return this.saldo;
-	}
-	
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
+	// GETTERS E SETTERS
 	
 	public String getTitular() {
-		return this.titular;
+		return titular;
 	}
 	
 	public void setTitular(String titular) {
@@ -112,7 +52,7 @@ public abstract class Conta implements Comparable<Conta> {
 	}
 	
 	public int getNumero() {
-		return this.numero;
+		return numero;
 	}
 	
 	public void setNumero(int numero) {
@@ -120,33 +60,26 @@ public abstract class Conta implements Comparable<Conta> {
 	}
 	
 	public String getAgencia() {
-		return this.agencia;
+		return agencia;
 	}
 	
 	public void setAgencia(String agencia) {
 		this.agencia = agencia;
 	}
 	
-	public static List<Conta> getContas() {
-		return contas;
+	public double getSaldo() {
+		return saldo;
 	}
 	
-	public abstract String getTipo();
-	
-	public String recuperaDadosParaImpressao() {
-		String dados = "Titular: " + this.titular;
-		dados += "\nNúmero: " + this.numero;
-		dados += "\nAgência: " + this.agencia;
-		dados += "\nSaldo: R$" + this.saldo;
-		dados += "\nTipo: " + this.getTipo();
-		return dados;
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 	
-	public abstract void atualiza(double taxaSelic);
-	public abstract double getValorImposto();
-
-	public int compareTo(Conta outraConta) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getDataDeAbetura() {
+		return dataDeAbertura;
+	}
+	
+	public void setDataDeAbertura(String dataDeAbertura) {
+		this.dataDeAbertura = dataDeAbertura;
 	}
 }
