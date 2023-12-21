@@ -4,13 +4,19 @@ import java.text.DecimalFormat;
 
 public class Conta {
 	
-	// ATRIBUTOS
-	
 	private String titular;
 	private int numero;
 	private String agencia;
 	private double saldo;
-	private String dataDeAbertura;
+	private Data dataDeAbertura;
+
+	public Conta(String titular, int numero, String agencia, double saldo, Data dataDeAbertura) {
+		this.titular = titular;
+		this.numero = numero;
+		this.agencia = agencia;
+		this.saldo = saldo;
+		this.dataDeAbertura = dataDeAbertura;
+	}
 	
 	// MÉTODOS
 	
@@ -38,7 +44,34 @@ public class Conta {
 	
 	public String getInformacoes() {
 		DecimalFormat df = new DecimalFormat("#.00");
-		return "Titular: " + titular + "\nNúmero: " + numero + "\nAgência: " + agencia + "\nSaldo: R$" + df.format(saldo) + "\n Data da Abertura: " + dataDeAbertura;
+		return "Titular: " + titular + "\nNúmero: " + numero + "\nAgência: " + agencia +
+				"\nSaldo: R$" + df.format(saldo) + "\nData da Abertura: " + dataDeAbertura.getFormatada();
+	}
+
+	
+	String recuperaDadosParaImpressao() {
+        String dados = "Titular: " + this.titular;
+        dados += "\nNúmero: " + this.numero;
+        dados += "\nAgência: " + this.agencia;
+        dados += "\nSaldo: R$" + this.saldo;
+        dados += "\nData de abertura: " + this.dataDeAbertura.getFormatada();
+        return dados;
+    }
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Conta outraConta = (Conta) obj;
+		return numero == outraConta.numero &&
+				Double.compare(outraConta.saldo, saldo) == 0 &&
+				titular.equals(outraConta.titular) &&
+				agencia.equals(outraConta.agencia) &&
+				dataDeAbertura.equals(outraConta.dataDeAbertura);
 	}
 	
 	// GETTERS E SETTERS
@@ -75,11 +108,11 @@ public class Conta {
 		this.saldo = saldo;
 	}
 	
-	public String getDataDeAbetura() {
-		return dataDeAbertura;
+	public String getDataDeAbertura() {
+		return dataDeAbertura.getFormatada();
 	}
 	
-	public void setDataDeAbertura(String dataDeAbertura) {
+	public void setDataDeAbertura(Data dataDeAbertura) {
 		this.dataDeAbertura = dataDeAbertura;
 	}
 }
