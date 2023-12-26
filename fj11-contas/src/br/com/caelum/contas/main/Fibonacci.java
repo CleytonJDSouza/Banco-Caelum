@@ -1,6 +1,6 @@
 package br.com.caelum.contas.main;
 
-class Fibonacci {
+public class Fibonacci {
 	
 	public static void main(String[] args) {
 		Fibonacci fibonacci = new Fibonacci();
@@ -11,11 +11,7 @@ class Fibonacci {
 	}
 	
 	public int calculaFibonacci(int n) {
-		if (n <= 1) {
-			return n;
-		} else {
-			return calculaFibonacci(n - 1) + calculaFibonacci(n - 2);
-		}
+		return (n <= 2) ? 1 : calculaFibonacci(n - 1) + calculaFibonacci(n - 2);
 	}
 }
 	
