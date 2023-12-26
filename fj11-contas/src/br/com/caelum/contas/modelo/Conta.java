@@ -22,11 +22,11 @@ public class Conta {
 	// MÉTODOS
 	
 	public void saca(double valor) {
-		if (valor > 0) {
-			saldo += valor;
-			System.out.println("Depósito de R$" + valor + " realizado com sucesso.");
+		if (valor > 0 && valor <= saldo) {
+			saldo -= valor;
+			System.out.println("Saque de R$" + valor + " realizado com sucesso.");
 		} else {
-			System.out.println("Valor do depósito deve ser maior que zero.");
+			System.out.println("Valor do saque deve ser maior que zero e menor ou igual ao saldo.");
 		}
 	}
 	

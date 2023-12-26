@@ -5,13 +5,12 @@ import br.com.caelum.contas.modelo.Data;
 
 public class TestaConta {
     public static void main(String[] args) {
-        Conta c1 = new Conta("Hugo", 557890, "12-x", 80, new Data());
-        c1.deposita(100);
-        
-        Data dataAberturaC1 = new Data();
-        dataAberturaC1.preencheData(1, 7, 2009);
-        c1.setDataDeAbertura(dataAberturaC1);
-
-        System.out.println(c1.recuperaDadosParaImpressao());
+       Conta minhaConta = new Conta("João", 123, "456", 1000.0, new Data());
+       
+       System.out.println("Titular da conta: " + minhaConta.getTitular());
+       System.out.println("Saldo atual: R$" + minhaConta.getSaldo());
+       
+       minhaConta.setSaldo(1500.0);
+       System.out.println("Novo saldo: R$" + minhaConta.getSaldo());
     }
 }
