@@ -26,4 +26,16 @@ public class ManipuladorDeContas {
 			System.out.println("Valor do depósito deve ser maior que zero.");
 		}
 	}
+	
+	public void saca(Evento evento) {
+		
+		double valor = evento.getValorOperacao();
+		
+		if (valor > 0) {
+			this.conta.saca(valor);
+			System.out.println("Saque de R$" + valor + " realizado com sucesso.");
+		} else {
+			System.out.println("Valor do saque deve ser maior que zero.");
+		}
+	}
 }
